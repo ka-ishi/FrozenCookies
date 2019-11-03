@@ -30,7 +30,7 @@ function setOverrides() {
     FrozenCookies.minCpSMult = preferenceParse('minCpSMult', 1);
     // FrozenCookies.cursorMax = preferenceParse('cursorMax', 500);
     // FrozenCookies.farmMax = preferenceParse('farmMax', 500);
-    FrozenCookies.autoGodzBuildings = preferenceParse('autoGodzBuildings', 100000);
+    FrozenCookies.autoGodzBuildings = preferenceParse('autoGodzBuildings', 1000);
     FrozenCookies.manaMax = preferenceParse('manaMax', 100);
     FrozenCookies.maxSpecials = preferenceParse('maxSpecials', 1);
 
