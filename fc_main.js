@@ -2159,6 +2159,7 @@ function autoGodzamokAction()
 		if (Game.Objects['Cursor'].amount >= 10 && FrozenCookies.autoGodzCounter > 0) {
 			var count = Game.Objects['Cursor'].amount;
 			if (count > FrozenCookies.autoGodzCounter) count = FrozenCookies.autoGodzCounter;
+			document.getElementById('storeBulk100').click();
 			Game.Objects['Cursor'].sell(count);
 			Game.Objects['Cursor'].buy(count);
 			FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzCounter - count;
