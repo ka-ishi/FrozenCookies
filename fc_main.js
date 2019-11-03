@@ -2150,21 +2150,21 @@ function autoGodzamokAction()
     if (!T) return; //Just leave if Pantheon isn't here yet
     //Now has option to not trigger until current Devastation buff expires (i.e. won't rapidly buy & sell cursors throughout Godzamok duration)
     //added Farms to autoGodzamok selling. 1 farm always left to prevent garden from disappearing
-	if (!Game.hasBuff('Devastation') && FrozenCookies.autoGodzamok >= 1) {
-		if (!hasClickBuff() || FrozenCookies.autoGodzamok == 1) {
-			FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzBuildings;
-		}
-	}
+    if (!Game.hasBuff('Devastation') && FrozenCookies.autoGodzamok >= 1) {
+        if (!hasClickBuff() || FrozenCookies.autoGodzamok == 1) {
+            FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzBuildings;
+        }
+    }
     if (Game.hasGod('ruin') && hasClickBuff() && FrozenCookies.autoGodzamok >= 1) {
-		if (Game.Objects['Cursor'].amount >= 10 && FrozenCookies.autoGodzCounter > 0) {
-			var count = Game.Objects['Cursor'].amount;
-			if (count > FrozenCookies.autoGodzCounter) count = FrozenCookies.autoGodzCounter;
-			document.getElementById('storeBulk100').click();
-			Game.Objects['Cursor'].sell(count);
-			Game.Objects['Cursor'].buy(count);
-			FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzCounter - count;
-		}
-	}
+        if (Game.Objects['Cursor'].amount >= 10 && FrozenCookies.autoGodzCounter > 0) {
+            var count = Game.Objects['Cursor'].amount;
+            if (count > FrozenCookies.autoGodzCounter) count = FrozenCookies.autoGodzCounter;
+            document.getElementById('storeBulk100').click();
+            Game.Objects['Cursor'].sell(count);
+            Game.Objects['Cursor'].buy(count);
+            FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzCounter - count;
+        }
+    }
 }
 
 function goldenCookieLife() {
