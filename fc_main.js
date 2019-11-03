@@ -28,10 +28,13 @@ function setOverrides() {
     FrozenCookies.frenzyClickSpeed = preferenceParse('frenzyClickSpeed', 0);
     FrozenCookies.HCAscendAmount = preferenceParse('HCAscendAmount', 0);
     FrozenCookies.minCpSMult = preferenceParse('minCpSMult', 1);
-    FrozenCookies.cursorMax = preferenceParse('cursorMax', 500);
-    FrozenCookies.farmMax = preferenceParse('farmMax', 500);
+    // FrozenCookies.cursorMax = preferenceParse('cursorMax', 500);
+    // FrozenCookies.farmMax = preferenceParse('farmMax', 500);
+    FrozenCookies.autoGodzBuildings = preferenceParse('autoGodzBuildings', 100000);
     FrozenCookies.manaMax = preferenceParse('manaMax', 100);
     FrozenCookies.maxSpecials = preferenceParse('maxSpecials', 1);
+
+	FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzBuildings;
 
     // Becomes 0 almost immediately after user input, so default to 0
     FrozenCookies.timeTravelAmount = 0;
@@ -334,8 +337,9 @@ function updateLocalStorage() {
     localStorage.frenzyClickSpeed = FrozenCookies.frenzyClickSpeed;
     localStorage.cookieClickSpeed = FrozenCookies.cookieClickSpeed;
     localStorage.HCAscendAmount = FrozenCookies.HCAscendAmount;
-    localStorage.cursorMax = FrozenCookies.cursorMax;
-    localStorage.farmMax = FrozenCookies.farmMax;
+    // localStorage.cursorMax = FrozenCookies.cursorMax;
+    // localStorage.farmMax = FrozenCookies.farmMax;
+	localStorage.autoGodzBuildings = FrozenCookies.autoGodzBuildings;
     localStorage.minCpSMult = FrozenCookies.minCpSMult;
     localStorage.frenzyTimes = JSON.stringify(FrozenCookies.frenzyTimes);
     //  localStorage.nonFrenzyTime = FrozenCookies.non_gc_time;
@@ -506,35 +510,18 @@ function updateMaxSpecials(base) {
     }
 }
 
-function getCursorMax(current) {
-    var newMax = prompt('How many Cursors should Autobuy stop at?', current);
-    if (typeof(newMax) == 'undefined' || newMax == null || isNaN(Number(newMax)) || Number(newMax < 0)) {
-        newMax = current;
+function getautoGodzBuildings(current) {
+    var newBlds = prompt('How many buildings you sell/buy for Godzmok during Dragonflight or Click Frenzy)?', current);
+    if (typeof(newBlds) == 'undefined' || newBlds == null || isNaN(Number(newBlds)) || Number(newBlds) < 0) {
+        newMin = current;
     }
-    return Number(newMax);
+    return Number(newBlds);
 }
 
-function updateCursorMax(base) {
-    var newMax = getCursorMax(FrozenCookies[base]);
-    if (newMax != FrozenCookies[base]) {
-        FrozenCookies[base] = newMax;
-        updateLocalStorage();
-        FCStart();
-    }
-}
-
-function getFarmMax(current) {
-    var newMax2 = prompt('How many Farms should Autobuy stop at?', current);
-    if (typeof(newMax2) == 'undefined' || newMax2 == null || isNaN(Number(newMax2)) || Number(newMax2 < 0)) {
-        newMax2 = current;
-    }
-    return Number(newMax2);
-}
-
-function updateFarmMax(base) {
-    var newMax2 = getFarmMax(FrozenCookies[base]);
-    if (newMax2 != FrozenCookies[base]) {
-        FrozenCookies[base] = newMax2;
+function updateautoGodzBuildings(base) {
+    var newBlds = getautoGodzBuildings(FrozenCookies[base]);
+    if (newBlds != FrozenCookies[base]) {
+        FrozenCookies[base] = newBlds;
         updateLocalStorage();
         FCStart();
     }
@@ -1252,22 +1239,6 @@ function recommendationList(recalculate) {
             for (var i = 0; i < FrozenCookies.caches.recommendationList.length; i++) {
                 if (FrozenCookies.caches.recommendationList[i].id == 7) {
                     FrozenCookies.caches.recommendationList.splice(i , 1);
-                }
-            }
-        }
-        //Stop buying Cursors if at set limit
-        if (FrozenCookies.cursorLimit && Game.Objects['Cursor'].amount >= FrozenCookies.cursorMax) {
-            for (var i = 0; i < FrozenCookies.caches.recommendationList.length; i++) {
-                if (FrozenCookies.caches.recommendationList[i].id == 0) {
-                    FrozenCookies.caches.recommendationList.splice(i, 1);
-                }
-            }
-        }
-	//Stop buying Farms if at set limit
-        if (FrozenCookies.farmLimit && Game.Objects['Farm'].amount >= FrozenCookies.farmMax) {
-            for (var i = 0; i < FrozenCookies.caches.recommendationList.length; i++) {
-                if (FrozenCookies.caches.recommendationList[i].id == 2) {
-                    FrozenCookies.caches.recommendationList.splice(i, 1);
                 }
             }
         }
@@ -2179,29 +2150,20 @@ function autoGodzamokAction()
     if (!T) return; //Just leave if Pantheon isn't here yet
     //Now has option to not trigger until current Devastation buff expires (i.e. won't rapidly buy & sell cursors throughout Godzamok duration)
     //added Farms to autoGodzamok selling. 1 farm always left to prevent garden from disappearing
-    if (Game.hasGod('ruin') && (!Game.hasBuff('Devastation')) && hasClickBuff())
-    {
-	    if ((FrozenCookies.autoGodzamok >= 1) && Game.Objects['Cursor'].amount >= 10)
-		{
-			var count = Game.Objects['Cursor'].amount; 	
-			Game.Objects['Cursor'].sell(count); 
+	if (!Game.hasBuff('Devastation') && FrozenCookies.autoGodzamok >= 1) {
+		if (!hasClickBuff() || FrozenCookies.autoGodzamok == 1) {
+			FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzBuildings;
 		}
-        if ((FrozenCookies.autoGodzamok >= 1) && Game.Objects['Farm'].amount >= 10)
-		{
-			var count2 = Game.Objects['Farm'].amount-1; 	
-			Game.Objects['Farm'].sell(count2); 
-		}
-		
-        if ((FrozenCookies.autoGodzamok >= 1) && Game.Objects['Cursor'].amount < 10) 
-		{
+	}
+    if (Game.hasGod('ruin') && hasClickBuff() && FrozenCookies.autoGodzamok >= 1) {
+		if (Game.Objects['Cursor'].amount >= 10 && FrozenCookies.autoGodzCounter > 0) {
+			var count = Game.Objects['Cursor'].amount;
+			if (count > FrozenCookies.autoGodzCounter) count = FrozenCookies.autoGodzCounter;
+			Game.Objects['Cursor'].sell(count);
 			Game.Objects['Cursor'].buy(count);
+			FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzCounter - count;
 		}
-		
-        if ((FrozenCookies.autoGodzamok >= 1) && Game.Objects['Farm'].amount < 10) 
-		{
-			Game.Objects['Farm'].buy(count2);
-		}
-    }
+	}
 }
 
 function goldenCookieLife() {
@@ -2424,7 +2386,7 @@ function FCStart() {
         clearInterval(FrozenCookies.autoGodzamokBot);
         FrozenCookies.autoGodzamokBot = 0;
     }
-	if (FrozenCookies.autoSpellkBot) {
+	if (FrozenCookies.autoSpellBot) {
         clearInterval(FrozenCookies.autoSpellBot);
         FrozenCookies.autoSpellBot = 0;
     }
