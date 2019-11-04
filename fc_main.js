@@ -1391,7 +1391,7 @@ function isUnavailable(upgrade, upgradeBlacklist) {
     result = result || (upgrade.season && (!haveAll(Game.season) || (upgrade.season != seasons[FrozenCookies.defaultSeason] && haveAll(upgrade.season))));
 
     if (upgrade.id == 74) {
-        if ((!haveAll('halloween') || !haveAll('easter')) && !Game.Upgrades['Elder Pact'].unlocked) result = true; // blacklist Elder Pledge if collecting season upgrade
+        if ((!haveAll('halloween') || !haveAll('easter')) && Game.Upgrades['Elder Pact'].unlocked) result = true; // blacklist Elder Pledge if collecting season upgrade
     }
 
     if (upgrade.id == 331 || upgrade.id == 332) {
