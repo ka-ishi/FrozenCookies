@@ -28,13 +28,11 @@ function setOverrides() {
     FrozenCookies.frenzyClickSpeed = preferenceParse('frenzyClickSpeed', 0);
     FrozenCookies.HCAscendAmount = preferenceParse('HCAscendAmount', 0);
     FrozenCookies.minCpSMult = preferenceParse('minCpSMult', 1);
-    // FrozenCookies.cursorMax = preferenceParse('cursorMax', 500);
-    // FrozenCookies.farmMax = preferenceParse('farmMax', 500);
     FrozenCookies.autoGodzBuildings = preferenceParse('autoGodzBuildings', 1000);
     FrozenCookies.manaMax = preferenceParse('manaMax', 100);
     FrozenCookies.maxSpecials = preferenceParse('maxSpecials', 1);
 
-	FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzBuildings;
+    FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzBuildings;
 
     // Becomes 0 almost immediately after user input, so default to 0
     FrozenCookies.timeTravelAmount = 0;
@@ -337,9 +335,7 @@ function updateLocalStorage() {
     localStorage.frenzyClickSpeed = FrozenCookies.frenzyClickSpeed;
     localStorage.cookieClickSpeed = FrozenCookies.cookieClickSpeed;
     localStorage.HCAscendAmount = FrozenCookies.HCAscendAmount;
-    // localStorage.cursorMax = FrozenCookies.cursorMax;
-    // localStorage.farmMax = FrozenCookies.farmMax;
-	localStorage.autoGodzBuildings = FrozenCookies.autoGodzBuildings;
+    localStorage.autoGodzBuildings = FrozenCookies.autoGodzBuildings;
     localStorage.minCpSMult = FrozenCookies.minCpSMult;
     localStorage.frenzyTimes = JSON.stringify(FrozenCookies.frenzyTimes);
     //  localStorage.nonFrenzyTime = FrozenCookies.non_gc_time;
