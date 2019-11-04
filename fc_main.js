@@ -1390,9 +1390,9 @@ function isUnavailable(upgrade, upgradeBlacklist) {
     }) != null);
     result = result || (upgrade.season && (!haveAll(Game.season) || (upgrade.season != seasons[FrozenCookies.defaultSeason] && haveAll(upgrade.season))));
 
-//    if (upgrade.id == 74) {
-//        if (!haveAll('halloween') || !haveAll('easter')) result = true; // blacklist Elder Pledge if collecting season upgrade
-//    }
+    if (upgrade.id == 74) {
+        if ((!haveAll('halloween') || !haveAll('easter')) && !Game.Upgrades['Elder Pact'].unlocked) result = true; // blacklist Elder Pledge if collecting season upgrade
+    }
 
     if (upgrade.id == 331 || upgrade.id == 332) {
         result = true; // blacklist golden switch from being used, until proper logic can be implemented
