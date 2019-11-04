@@ -507,7 +507,7 @@ function updateMaxSpecials(base) {
 }
 
 function getautoGodzBuildings(current) {
-    var newBlds = prompt('How many buildings you sell/buy for Godzmok during Dragonflight or Click Frenzy?', current);
+    var newBlds = prompt('How many total buildings you sell/buy for Godzmok during Dragonflight or Click Frenzy?\n(e.g. You have 200 cursors and set 1,000, repeat sell/buy 5 times.)', current);
     if (typeof(newBlds) == 'undefined' || newBlds == null || isNaN(Number(newBlds)) || Number(newBlds) < 0) {
         newMin = current;
     }
