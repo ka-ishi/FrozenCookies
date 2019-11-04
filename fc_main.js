@@ -36,7 +36,7 @@ function setOverrides() {
     FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzBuildings;
 
     // last building name for cast SE
-    Frozencookies.lastBuilding = 'Javascript console';
+    FrozenCookies.lastBuilding = 'Javascript console';
 
     // Becomes 0 almost immediately after user input, so default to 0
     FrozenCookies.timeTravelAmount = 0;
@@ -672,12 +672,12 @@ function autoCast() {
             case 3:
                 var SE = M.spellsById[3];
                 //If you don't have any last building yet, or can't cast SE, just give up.
-                if (Game.Objects[Frozencookies.lastBuilding].amount == 0 || M.magicM < Math.floor(SE.costMin + SE.costPercent*M.magicM)) return;
+                if (Game.Objects[FrozenCookies.lastBuilding].amount == 0 || M.magicM < Math.floor(SE.costMin + SE.costPercent*M.magicM)) return;
                 //If we have over 400 buildings, always going to sell down to 399. If you don't have half a last building in bank, sell one
-                while (Game.Objects[Frozencookies.lastBuilding].amount >= 400 || Game.cookies < Game.Objects[Frozencookies.lastBuilding].price/2) {
-                   Game.Objects[Frozencookies.lastBuilding].sell(1);
+                while (Game.Objects[FrozenCookies.lastBuilding].amount >= 400 || Game.cookies < Game.Objects[FrozenCookies.lastBuilding].price/2) {
+                   Game.Objects[FrozenCookies.lastBuilding].sell(1);
 		//log event calculation outdated. sell return was reduced from .85 with earth shatterer to .5
-                   logEvent('Store', 'Sold 1 last building for ' + Beautify(Game.Objects[Frozencookies.lastBuilding].price*1.15*.50));
+                   logEvent('Store', 'Sold 1 last building for ' + Beautify(Game.Objects[FrozenCookies.lastBuilding].price*1.15*.50));
                 }
                 M.castSpell(SE);
                 logEvent('AutoSpell', 'Cast Spontaneous Edifice');
@@ -957,13 +957,13 @@ function estimatedTimeRemaining(cookies) {
 }
 
 function canCastSE() {
-    if (M.magicM >= 80 && Game.Objects[Frozencookies.lastBuilding].amount > 0) return 1;
+    if (M.magicM >= 80 && Game.Objects[FrozenCookies.lastBuilding].amount > 0) return 1;
     return 0;
 }
 
 function edificeBank() {
     if (!canCastSE) return 0;
-    var cmCost = Game.Objects[Frozencookies.lastBuilding].price;
+    var cmCost = Game.Objects[FrozenCookies.lastBuilding].price;
     return Game.hasBuff('everything must go') ? (cmCost * (100/95))/2 : cmCost/2;
 }
 function luckyBank() {
@@ -1213,7 +1213,7 @@ function recommendationList(recalculate) {
                 return a.efficiency != b.efficiency ? a.efficiency - b.efficiency : (a.delta_cps != b.delta_cps ? b.delta_cps - a.delta_cps : a.cost - b.cost);
             }));
         //If autocasting Spontaneous Edifice, don't buy any last building after 399
-        if (M && FrozenCookies.autoSpell == 3 && Game.Objects[Frozencookies.lastBuilding].amount >= 399) {
+        if (M && FrozenCookies.autoSpell == 3 && Game.Objects[FrozenCookies.lastBuilding].amount >= 399) {
             for (var i = 0; i < FrozenCookies.caches.recommendationList.length; i++) {
                 if (FrozenCookies.caches.recommendationList[i].id == 15) {
                     FrozenCookies.caches.recommendationList.splice(i , 1);
