@@ -1228,6 +1228,14 @@ function recommendationList(recalculate) {
                 }
             }
         }
+        //Stop buying Cursors 500 if set autoGodzamok
+        if (FrozenCookies.autoGodzamok && Game.Objects['Cursor'].amount >= 500) {
+            for (var i = 0; i < FrozenCookies.caches.recommendationList.length; i++) {
+                if (FrozenCookies.caches.recommendationList[i].id == 0) {
+                    FrozenCookies.caches.recommendationList.splice(i, 1);
+                }
+            }
+        }
         if (FrozenCookies.pastemode) {
             FrozenCookies.caches.recommendationList.reverse();
         }
