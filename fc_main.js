@@ -2161,6 +2161,7 @@ function autoGodzamokAction()
             FrozenCookies.autoGodzCounter = FrozenCookies.autoGodzCounter - count;
             if (count > 500) count = 500;
             Game.Objects['Cursor'].buy(count);
+            if (FrozenCookies.autoGodzCounter == 0) document.getElementById('storeBulk1').click();
         }
     }
 }
