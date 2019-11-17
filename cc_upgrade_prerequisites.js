@@ -115,7 +115,7 @@ FrozenCookies.preferenceValues = {
         'default':0
     },
     'autoGodzamok':{
-        'hint':'Automatically sell all cursors during Dragonflight and Click Frenzy if you worship Godzamok("Sane" sell/buy only Once at a time). Cursor will be bought up to 500.',
+        'hint':'Automatically sell all cursors during Dragonflight and Click Frenzy if you worship Godzamok("Sane" sell/buy only Once at a time).',
         'display':['Auto-Godzamok OFF','Auto-Godzamok ON','Auto-Godzamok ON (Sane)',],
         'default':0,
         'extras':'<a class="option" id="autoGodzBuildings" onclick="updateautoGodzBuildings(\'autoGodzBuildings\');">${autoGodzBuildings} buildings</a>'
