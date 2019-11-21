@@ -996,8 +996,10 @@ function harvestBank() {
 
     if(FrozenCookies.setHarvestBankType == 2 || FrozenCookies.setHarvestBankType == 3){
         var harvestBuildingArray = Array();
-        for (var i in Game.Objects) {
-            harvestBuildingArray[i] = Game.Objects[i].amount;
+	var i = 0;
+        for (var j in Game.Objects) {
+            harvestBuildingArray[i] = Game.Objects[j].amount;
+            i++;
         }
         harvestBuildingArray.sort(function(a, b){return b-a});
         for(var buildingLoop = 0; buildingLoop < FrozenCookies.maxSpecials ; buildingLoop++){
